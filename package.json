@@ -21,7 +21,15 @@
     "@babel/node": "^7.6.3",
     "@babel/preset-env": "^7.6.3",
     "express": "^4.17.1",
+    "morgan": "^1.9.1",
     "nodemon": "^1.19.4",
+    "pug": "^2.0.4",
     "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "prettier": "^1.18.2"
   }
 }
