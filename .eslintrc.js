@@ -18,6 +18,7 @@ module.exports = {
     "no-console": "off",
     "arrow-parens": "off",
     "no-param-reassign": "off",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "import/prefer-default-export": "off"
   }
 };

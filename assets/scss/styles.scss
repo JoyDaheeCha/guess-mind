@@ -1,0 +1,15 @@
+@import "body.scss";
+
+body {
+    background-color: pink;
+}
+
+@keyframes mymove {
+    from {
+        top: 0px;
+    }
+
+    to {
+        top: 200px;
+    }
+}
