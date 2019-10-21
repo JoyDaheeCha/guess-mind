@@ -3,6 +3,7 @@ const notifications = document.getElementById("jsNotifications");
 const fireNotification = (text, color) => {
   const notification = document.createElement("div");
   notification.innerText = text;
+  notification.className = "notification";
   notification.style.backgroundColor = color;
   notifications.appendChild(notification);
 };
