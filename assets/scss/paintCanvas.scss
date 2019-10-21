@@ -1,0 +1,61 @@
+.paintCanvas {
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    canvas {
+        width: 400px;
+        height: 400px;
+        background-color: white;
+        border-radius: 30px;
+        box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+            0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+    }
+
+    .controls {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .controls__btns {
+        margin-bottom: 10px;
+
+        button {
+            all: unset;
+            cursor: pointer;
+            background-color: white;
+            border-radius: 30px;
+            width: 70px;
+            height: 30px;
+            text-align: center;
+            box-shadow: 6px 6px 10px 1px rgba(50, 50, 93, 0.25);
+            border: 2px solid $black;
+            color: $black;
+            text-transform: uppercase;
+
+            &:active {
+                transform: scale(0.9);
+            }
+        }
+    }
+
+    .controls__colors {
+        display: flex;
+
+        .controls__color {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 5px;
+            box-shadow: 6px 6px 10px 1px rgba(50, 50, 93, 0.25);
+            cursor: pointer;
+
+            &:active {
+                transform: scale(1.1);
+            }
+        }
+    }
+}
