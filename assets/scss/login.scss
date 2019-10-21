@@ -1,0 +1,25 @@
+.loginBox {
+    input {
+        font-size: 30px;
+        text-align: center;
+        border: 5px solid $moderate-cyan;
+        color: $black;
+        padding: 10px;
+        background: transparent;
+
+        &::placeholder {
+            color: $black;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.gameContainer {
+    h1 {
+        font-size: 30px;
+        color: $black;
+    }
+}

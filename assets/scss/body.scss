@@ -1,0 +1,25 @@
+main {
+    width: 100%;
+    min-height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .loginBox,
+    .gameContainer {
+        display: none;
+    }
+
+    &.loggedOut {
+        .loginBox {
+            display: block;
+        }
+    }
+
+    &.loggedIn {
+        .gameContainer {
+            display: block;
+        }
+    }
+}
