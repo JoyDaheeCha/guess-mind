@@ -1,15 +1,22 @@
 import events from "./events";
 
-const socketController = socket => {
+let sockets = [];
+const socketController = (socket, io) => {
   const broadcast = (event, data) => socket.broadcast.emit(event, data);
+  const superBroadcast = (event, data) => io.emit(event, data);
+  const sendPlayerUpdate = () => superBroadcast(events.playerUpdate, { sockets });
 
   socket.on(events.setNickname, ({ nickname }) => {
     broadcast(events.newUser, { nickname });
     socket.nickname = nickname;
+    sockets.push({ id: socket.id, points: "0", nickname });
+    sendPlayerUpdate();
   });
 
   socket.on(events.disconnect, () => {
     broadcast(events.disconnected, { nickname: socket.nickname });
+    sockets = sockets.filter(aSocket => aSocket.id !== socket.id);
+    sendPlayerUpdate();
   });
 
   socket.on(events.sendMsg, ({ message }) => {

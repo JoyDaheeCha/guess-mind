@@ -11,6 +11,7 @@ const events = {
   strokedPath: "strokedPath",
   canvasClick: "canvasClick",
   canvasClicked: "canvasClicked",
+  playerUpdate: "playerUpdate"
 };
 
 export default events;
