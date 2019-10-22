@@ -1,3 +1,6 @@
+/* eslint-disable import/no-cycle */
+import { getSocket } from "./sockets";
+
 const canvas = document.getElementById("jsCanvas");
 const ctx = canvas.getContext("2d");
 const colors = document.getElementsByClassName("jsColor");
@@ -21,7 +24,7 @@ ctx.lineWidth = 2.5;
 let painting = false;
 let filling = false;
 
-function stopPainting(event) {
+function stopPainting() {
   painting = false;
 }
 
@@ -29,15 +32,39 @@ function startPainting() {
   painting = true;
 }
 
+const beginPath = (x, y) => {
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+};
+
+const strokePath = (x, y, color = null) => {
+  const currentColor = ctx.strokeStyle;
+  if (color !== null) {
+    ctx.strokeStyle = color;
+  }
+  ctx.lineTo(x, y);
+  ctx.stroke();
+  ctx.strokeStyle = currentColor;
+};
+
+const fill = (color = null) => {
+  const currentColor = ctx.fillStyle;
+  if (color !== null) {
+    ctx.fillStyle = color;
+  }
+  ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  ctx.fillStyle = currentColor;
+};
+
 function onMouseMove(event) {
   const x = event.offsetX;
   const y = event.offsetY;
   if (!painting) {
-    ctx.beginPath();
-    ctx.moveTo(x, y);
+    beginPath(x, y);
+    getSocket().emit(window.events.beginPath, { x, y });
   } else {
-    ctx.lineTo(x, y);
-    ctx.stroke();
+    strokePath(x, y);
+    getSocket().emit(window.events.strokePath, { x, y, color: ctx.strokeStyle });
   }
 }
 
@@ -64,7 +91,8 @@ function handleModeClick() {
 
 function handleCanvasClick() {
   if (filling === true) {
-    ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    fill();
+    getSocket().emit(window.events.canvasClick, { color: ctx.fillStyle });
   }
 }
 
@@ -102,3 +130,7 @@ if (mode) {
 if (saveBtn) {
   saveBtn.addEventListener("click", handleSaveClick);
 }
+
+export const handleBeganPath = ({ x, y }) => beginPath(x, y);
+export const handleStrokedPath = ({ x, y, color }) => strokePath(x, y, color);
+export const handleCanvasClicked = ({ color }) => fill(color);

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { getSocket } from "./sockets";
 
 const messages = document.getElementById("jsMessages");
