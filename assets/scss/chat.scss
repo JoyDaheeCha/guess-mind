@@ -6,6 +6,7 @@
 
 
     .chat__messages {
+        overflow-y: auto;
         width: 100%;
         max-width: 200px;
         padding: 20px;

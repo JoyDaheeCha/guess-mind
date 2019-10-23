@@ -7,6 +7,7 @@ const colors = document.getElementsByClassName("jsColor");
 const range = document.getElementById("jsRange");
 const mode = document.getElementById("jsMode");
 const saveBtn = document.getElementById("jsSave");
+const controls = document.getElementById("jsControls");
 
 const INITIAL_COLOR = "black";
 const CANVAS_SIZE = 400;
@@ -108,14 +109,35 @@ function handleSaveClick(event) {
   link.click();
 }
 
-if (canvas) {
+export const enableCanvas = () => {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startPainting);
   canvas.addEventListener("mouseup", stopPainting);
   canvas.addEventListener("mouseleave", stopPainting);
   canvas.addEventListener("click", handleCanvasClick);
-  canvas.addEventListener("contextmenu", handleRightClick);
-}
+};
+
+export const handleBeganPath = ({ x, y }) => beginPath(x, y);
+export const handleStrokedPath = ({ x, y, color }) => strokePath(x, y, color);
+export const handleCanvasClicked = ({ color }) => fill(color);
+
+export const disableCanvas = () => {
+  canvas.removeEventListener("mousemove", onMouseMove);
+  canvas.removeEventListener("mousedown", startPainting);
+  canvas.removeEventListener("mouseup", stopPainting);
+  canvas.removeEventListener("mouseleave", stopPainting);
+  canvas.removeEventListener("click", handleCanvasClick);
+};
+
+export const hideControls = () => {
+  controls.style.display = "none";
+};
+
+export const showControls = () => {
+  controls.style.display = "flex";
+};
+
+export const resetCanvas = () => fill("#ffffff");
 
 Array.from(colors).forEach(color => color.addEventListener("click", handleColorClick));
 
@@ -131,6 +153,6 @@ if (saveBtn) {
   saveBtn.addEventListener("click", handleSaveClick);
 }
 
-export const handleBeganPath = ({ x, y }) => beginPath(x, y);
-export const handleStrokedPath = ({ x, y, color }) => strokePath(x, y, color);
-export const handleCanvasClicked = ({ color }) => fill(color);
+if (canvas) {
+  canvas.addEventListener("contextmenu", handleRightClick);
+}
